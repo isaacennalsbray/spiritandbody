@@ -36,14 +36,10 @@ async function request(method, path, body) {
 
 const ApiClient = {
   // ─── Auth ──────────────────────────────────────────────────────────────────
-  async register(username, email, password) {
-    const data = await request('POST', '/auth/register', { username, email, password });
-    if (data.token) setToken(data.token);
-    return data;
-  },
 
-  async login(email, password) {
-    const data = await request('POST', '/auth/login', { email, password });
+  /** Claim a username. Creates account if new, re-issues token if already yours. */
+  async claim(username) {
+    const data = await request('POST', '/auth/claim', { username });
     if (data.token) setToken(data.token);
     return data;
   },
@@ -83,6 +79,10 @@ const ApiClient = {
 
   // ─── Battle ────────────────────────────────────────────────────────────────
   async submitPveResult(payload) {
+    return request('POST', '/battle/pve/result', payload);
+  },
+
+  async postBattleResult(payload) {
     return request('POST', '/battle/pve/result', payload);
   },
 
