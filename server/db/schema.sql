@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS spirit_beasts (
     tier                INTEGER DEFAULT 1,
     level               INTEGER DEFAULT 1,
     xp                  INTEGER DEFAULT 0,
+    xp_to_next          INTEGER DEFAULT 80,
     hp_max              INTEGER,
     hp_current          INTEGER,
     attack              INTEGER,

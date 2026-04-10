@@ -82,6 +82,10 @@ const ApiClient = {
     return request('POST', '/battle/pve/result', payload);
   },
 
+  async postBattleResult(payload) {
+    return request('POST', '/battle/pve/result', payload);
+  },
+
   // ─── PvP ───────────────────────────────────────────────────────────────────
   async createChallenge(defenderId) {
     return request('POST', '/pvp/challenges', { defenderId });

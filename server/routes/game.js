@@ -40,7 +40,9 @@ router.post('/characters', (req, res, next) => {
       stats.hpMax, stats.hpMax,
       stats.resourceMax, stats.resourceMax,
       stats.attack, stats.defense, stats.speed,
-      JSON.stringify(getUnlockedAbilities(heroClass, 1).map(a => a.id))
+      // Give the player their first 4 abilities (through level 8) so the first
+      // battle has meaningful choices from the start.
+      JSON.stringify(getUnlockedAbilities(heroClass, 8).map(a => a.id))
     );
     const charId = charResult.lastInsertRowid;
 
@@ -52,10 +54,10 @@ router.post('/characters', (req, res, next) => {
     // Create spirit beast
     const beastResult = db.prepare(`
       INSERT INTO spirit_beasts
-        (user_id, character_id, beast_template_id, beast_type, tier, level, xp,
+        (user_id, character_id, beast_template_id, beast_type, tier, level, xp, xp_to_next,
          hp_max, hp_current, attack, defense, speed, stamina_current,
          unlocked_abilities, active_passives)
-      VALUES (?, ?, ?, ?, 1, 1, 0, ?, ?, ?, ?, ?, 3, ?, ?)
+      VALUES (?, ?, ?, ?, 1, 1, 0, 80, ?, ?, ?, ?, ?, 3, ?, ?)
     `).run(
       req.user.id, charId, beastTemplateId, beastType,
       beastStats.hp, beastStats.hp,

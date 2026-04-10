@@ -51,7 +51,7 @@ export default class CharacterCreateScene extends Phaser.Scene {
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, P.bg);
 
     this.add.text(GAME_WIDTH / 2, 24, 'CREATE YOUR HERO', {
-      fontFamily: 'monospace', fontSize: '16px', fontStyle: 'bold', color: '#aabbff', letterSpacing: 3,
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '16px', fontStyle: 'bold', color: '#aabbff', letterSpacing: 3,
     }).setOrigin(0.5);
 
     this._drawClasses();
@@ -63,7 +63,7 @@ export default class CharacterCreateScene extends Phaser.Scene {
   // ─── Class picker ───────────────────────────────────────────────────────────
 
   _drawClasses() {
-    this.add.text(60, 52, 'CLASS', { fontFamily: 'monospace', fontSize: '11px', color: '#445566', letterSpacing: 2 }).setOrigin(0, 0.5);
+    this.add.text(60, 52, 'CLASS', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#445566', letterSpacing: 2 }).setOrigin(0, 0.5);
 
     CLASSES.forEach((cls, i) => {
       const x = 120 + i * 260, y = 120;
@@ -75,11 +75,11 @@ export default class CharacterCreateScene extends Phaser.Scene {
       const bg = this.add.rectangle(x, y, w, h, P.panel).setInteractive({ useHandCursor: true });
       this.add.text(x - w / 2 + 16, y - 28, cls.symbol, { fontSize: '22px' }).setOrigin(0, 0.5);
       this.add.text(x - w / 2 + 50, y - 28, cls.name.toUpperCase(), {
-        fontFamily: 'monospace', fontSize: '14px', fontStyle: 'bold',
+        fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '14px', fontStyle: 'bold',
         color: '#' + cls.color.toString(16).padStart(6, '0'),
       }).setOrigin(0, 0.5);
       this.add.text(x - w / 2 + 14, y, cls.desc, {
-        fontFamily: 'monospace', fontSize: '11px', color: '#889aaa', wordWrap: { width: w - 20 },
+        fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#889aaa', wordWrap: { width: w - 20 },
       }).setOrigin(0, 0.5);
 
       bg.on('pointerdown', () => {
@@ -94,13 +94,13 @@ export default class CharacterCreateScene extends Phaser.Scene {
   // ─── Beast picker ───────────────────────────────────────────────────────────
 
   _drawBeasts() {
-    this.add.text(60, 178, 'SPIRIT BEAST', { fontFamily: 'monospace', fontSize: '11px', color: '#445566', letterSpacing: 2 }).setOrigin(0, 0.5);
+    this.add.text(60, 178, 'SPIRIT BEAST', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#445566', letterSpacing: 2 }).setOrigin(0, 0.5);
 
     const types = ['land', 'sky', 'water'];
     types.forEach((type, ti) => {
       const tx = 120 + ti * 280;
       this.add.text(tx, 198, type.toUpperCase(), {
-        fontFamily: 'monospace', fontSize: '10px', color: '#' + TYPE_COLOR[type].toString(16).padStart(6, '0'), letterSpacing: 2,
+        fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '10px', color: '#' + TYPE_COLOR[type].toString(16).padStart(6, '0'), letterSpacing: 2,
       }).setOrigin(0.5);
 
       BEASTS.filter(b => b.type === type).forEach((beast, bi) => {
@@ -114,9 +114,9 @@ export default class CharacterCreateScene extends Phaser.Scene {
 
         const bg = this.add.rectangle(x, y, w, h, P.panel).setInteractive({ useHandCursor: true });
         this.add.text(x, y - 26, beast.symbol, { fontSize: '20px' }).setOrigin(0.5);
-        this.add.text(x, y + 6, beast.name, { fontFamily: 'monospace', fontSize: '10px', color: '#ddeeff' }).setOrigin(0.5);
+        this.add.text(x, y + 6, beast.name, { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '10px', color: '#ddeeff' }).setOrigin(0.5);
         this.add.text(x, y + 24, beast.desc, {
-          fontFamily: 'monospace', fontSize: '9px', color: '#667799', wordWrap: { width: w - 6 }, align: 'center',
+          fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '9px', color: '#667799', wordWrap: { width: w - 6 }, align: 'center',
         }).setOrigin(0.5);
 
         bg.on('pointerdown', () => {
@@ -133,7 +133,7 @@ export default class CharacterCreateScene extends Phaser.Scene {
 
   _drawSynergyRow() {
     this._synergyText = this.add.text(GAME_WIDTH / 2, 342, '', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#6688ff', align: 'center',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#6688ff', align: 'center',
     }).setOrigin(0.5);
     this._updateSynergy();
   }
@@ -157,7 +157,7 @@ export default class CharacterCreateScene extends Phaser.Scene {
     this._drawSynergyRow();
 
     this.add.text(GAME_WIDTH / 2 - 200, 378, 'Hero name:', {
-      fontFamily: 'monospace', fontSize: '13px', color: '#667799',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '13px', color: '#667799',
     }).setOrigin(0, 0.5);
 
     this._nameInput = this.add.dom(GAME_WIDTH / 2 + 30, 378).createElement('input');
@@ -166,7 +166,7 @@ export default class CharacterCreateScene extends Phaser.Scene {
     this._nameInput.node.maxLength = 20;
     this._nameInput.node.style.cssText = `
       width: 220px; height: 32px; background: #1a1a2e; border: 1px solid #2a2a4a;
-      color: #ddeeff; font-family: monospace; font-size: 14px; padding: 0 10px;
+      color: #ddeeff; font-family: 'Share Tech Mono', 'Courier New', monospace; font-size: 14px; padding: 0 10px;
       outline: none; box-sizing: border-box;
     `;
     this._nameInput.node.addEventListener('focus', () => { this._nameInput.node.style.borderColor = '#6688ff'; });
@@ -175,18 +175,18 @@ export default class CharacterCreateScene extends Phaser.Scene {
     setTimeout(() => this._nameInput.node.focus(), 80);
 
     this._errorText = this.add.text(GAME_WIDTH / 2, 404, '', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#ff4455',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#ff4455',
     }).setOrigin(0.5);
   }
 
   _drawCreateButton() {
     const backBtn = this.add.rectangle(80, GAME_HEIGHT - 40, 120, 36, P.panel).setInteractive({ useHandCursor: true });
-    this.add.text(80, GAME_HEIGHT - 40, '← Menu', { fontFamily: 'monospace', fontSize: '13px', color: '#667799' }).setOrigin(0.5);
+    this.add.text(80, GAME_HEIGHT - 40, '← Menu', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '13px', color: '#667799' }).setOrigin(0.5);
     backBtn.on('pointerdown', () => { this._cleanup(); this.scene.start('MainMenuScene'); });
 
     this._createBtn = this.add.rectangle(GAME_WIDTH - 120, GAME_HEIGHT - 40, 200, 36, P.accent).setInteractive({ useHandCursor: true });
     this._createLabel = this.add.text(GAME_WIDTH - 120, GAME_HEIGHT - 40, 'Create Hero →', {
-      fontFamily: 'monospace', fontSize: '14px', fontStyle: 'bold', color: '#ffffff',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '14px', fontStyle: 'bold', color: '#ffffff',
     }).setOrigin(0.5);
 
     this._createBtn.on('pointerover', () => this._createBtn.setFillStyle(0x8899ff));
@@ -218,6 +218,10 @@ export default class CharacterCreateScene extends Phaser.Scene {
   }
 
   _showSuccess(character, beast) {
+    // Store for test API / programmatic access
+    this._lastChar  = character;
+    this._lastBeast = beast;
+
     this.children.removeAll(true);
     const cx = GAME_WIDTH / 2, cy = GAME_HEIGHT / 2;
     this.add.rectangle(cx, cy, GAME_WIDTH, GAME_HEIGHT, P.bg);
@@ -226,14 +230,19 @@ export default class CharacterCreateScene extends Phaser.Scene {
     const cDef = CLASSES.find(c => c.id === character.heroClass);
 
     this.add.text(cx, cy - 80, '✦', { fontSize: '40px', color: '#ffcc44' }).setOrigin(0.5);
-    this.add.text(cx, cy - 36, character.name, { fontFamily: 'monospace', fontSize: '26px', fontStyle: 'bold', color: '#ffffff' }).setOrigin(0.5);
+    this.add.text(cx, cy - 36, character.name, { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '26px', fontStyle: 'bold', color: '#ffffff' }).setOrigin(0.5);
     this.add.text(cx, cy - 4, `${cDef?.symbol} ${cDef?.name}  ·  ${bDef?.symbol} ${bDef?.name}`, {
-      fontFamily: 'monospace', fontSize: '15px', color: '#aabbff',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '15px', color: '#aabbff',
     }).setOrigin(0.5);
 
-    const btn = this.add.rectangle(cx, cy + 60, 200, 38, P.accent).setInteractive({ useHandCursor: true });
-    this.add.text(cx, cy + 60, 'Start Adventure →', { fontFamily: 'monospace', fontSize: '14px', color: '#ffffff' }).setOrigin(0.5);
-    btn.on('pointerdown', () => this.scene.start('MainMenuScene'));
+    const btn = this.add.rectangle(cx, cy + 60, 220, 38, P.accent).setInteractive({ useHandCursor: true });
+    this.add.text(cx, cy + 60, '⚔ Start Battle →', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '14px', color: '#ffffff' }).setOrigin(0.5);
+    btn.on('pointerdown', () => this.scene.start('BattleScene', {
+      char:    character,
+      beast:   beast,
+      enemyId: 'forest_bandit',
+      terrain: 'forest',
+    }));
   }
 
   _cleanup() {

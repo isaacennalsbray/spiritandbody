@@ -63,13 +63,13 @@ export default class MainMenuScene extends Phaser.Scene {
     const glow = this.add.rectangle(cx, 140, 520, 90, PALETTE.accent).setAlpha(0.06);
     this.tweens.add({ targets: glow, alpha: { from: 0.04, to: 0.10 }, duration: 2000, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    this.add.text(cx, 115, 'SPIRIT', { fontFamily: 'monospace', fontSize: '52px', fontStyle: 'bold', color: '#ffffff', stroke: '#6688ff', strokeThickness: 3 }).setOrigin(0.5);
-    this.add.text(cx, 160, '& BODY', { fontFamily: 'monospace', fontSize: '28px', fontStyle: 'bold', color: '#aabbff' }).setOrigin(0.5);
+    this.add.text(cx, 115, 'SPIRIT', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '52px', fontStyle: 'bold', color: '#ffffff', stroke: '#6688ff', strokeThickness: 3 }).setOrigin(0.5);
+    this.add.text(cx, 160, '& BODY', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '28px', fontStyle: 'bold', color: '#aabbff' }).setOrigin(0.5);
 
     const gfx = this.add.graphics();
     gfx.lineStyle(1, PALETTE.accentDim, 0.8);
     gfx.lineBetween(cx - 180, 188, cx + 180, 188);
-    this.add.text(cx, 202, 'A TURN-BASED RPG', { fontFamily: 'monospace', fontSize: '11px', color: '#667799', letterSpacing: 4 }).setOrigin(0.5);
+    this.add.text(cx, 202, 'A TURN-BASED RPG', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#667799', letterSpacing: 4 }).setOrigin(0.5);
   }
 
   // ─── Menu ───────────────────────────────────────────────────────────────────
@@ -87,8 +87,8 @@ export default class MainMenuScene extends Phaser.Scene {
       const y = 290 + i * 52;
       const bg = this.add.rectangle(cx, y, 260, 40, PALETTE.panel).setInteractive({ useHandCursor: true });
       this.add.rectangle(cx, y, 262, 42, PALETTE.border).setDepth(-1);
-      const label = this.add.text(cx, y, item.label, { fontFamily: 'monospace', fontSize: '18px', color: '#ddeeff' }).setOrigin(0.5);
-      const arrow = this.add.text(cx - 148, y, '▶', { fontFamily: 'monospace', fontSize: '14px', color: '#6688ff' }).setOrigin(0.5).setAlpha(0);
+      const label = this.add.text(cx, y, item.label, { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '18px', color: '#ddeeff' }).setOrigin(0.5);
+      const arrow = this.add.text(cx - 148, y, '▶', { fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '14px', color: '#6688ff' }).setOrigin(0.5).setAlpha(0);
       bg.on('pointerover', () => this._selectIndex(i));
       bg.on('pointerdown', () => this._activate(i));
       return { bg, label, arrow, key: item.key };
@@ -161,10 +161,10 @@ export default class MainMenuScene extends Phaser.Scene {
     const panel  = this.add.rectangle(cx, cy, W, H, PALETTE.panel);
 
     this.add.text(cx, cy - H / 2 + 28, 'ENTER YOUR NAME', {
-      fontFamily: 'monospace', fontSize: '15px', fontStyle: 'bold', color: '#aabbff',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '15px', fontStyle: 'bold', color: '#aabbff',
     }).setOrigin(0.5);
     this.add.text(cx, cy - H / 2 + 50, 'Pick a username to get started', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#667799',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#667799',
     }).setOrigin(0.5);
 
     const input = this._makeInput(cx, cy - 10, 'Username…', 'text', W - 40);
@@ -172,16 +172,16 @@ export default class MainMenuScene extends Phaser.Scene {
     setTimeout(() => input.node.focus(), 50);
 
     const errorText = this.add.text(cx, cy + 26, '', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#ff4455',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#ff4455',
     }).setOrigin(0.5);
 
     const btn = this.add.rectangle(cx, cy + H / 2 - 38, 180, 36, PALETTE.accent).setInteractive({ useHandCursor: true });
     const btnLabel = this.add.text(cx, cy + H / 2 - 38, 'Play →', {
-      fontFamily: 'monospace', fontSize: '15px', color: '#ffffff',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '15px', color: '#ffffff',
     }).setOrigin(0.5);
 
     const closeBtn = this.add.text(cx + W / 2 - 16, cy - H / 2 + 14, '✕', {
-      fontFamily: 'monospace', fontSize: '13px', color: '#667799',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '13px', color: '#667799',
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
     container.add([dim, border, panel, errorText, btn, btnLabel, closeBtn]);
@@ -228,7 +228,7 @@ export default class MainMenuScene extends Phaser.Scene {
     el.node.placeholder = placeholder;
     el.node.style.cssText = `
       width: ${width}px; height: 30px; background: #1a1a2e; border: 1px solid #2a2a4a;
-      color: #ddeeff; font-family: monospace; font-size: 13px; padding: 0 10px;
+      color: #ddeeff; font-family: 'Share Tech Mono','Courier New',monospace; font-size: 13px; padding: 0 10px;
       outline: none; box-sizing: border-box;
     `;
     el.node.addEventListener('focus', () => { el.node.style.borderColor = '#6688ff'; });
@@ -263,17 +263,17 @@ export default class MainMenuScene extends Phaser.Scene {
 
   _drawVersion() {
     this._statusText = this.add.text(12, GAME_HEIGHT - 16, 'v0.2 — connecting…', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#445566',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#445566',
     }).setOrigin(0, 1);
     this.add.text(GAME_WIDTH - 12, GAME_HEIGHT - 16, '© Spirit and Body', {
-      fontFamily: 'monospace', fontSize: '11px', color: '#334455',
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '11px', color: '#334455',
     }).setOrigin(1, 1);
   }
 
   _showToast(msg) {
     const cx = GAME_WIDTH / 2;
     const toast = this.add.text(cx, GAME_HEIGHT - 50, msg, {
-      fontFamily: 'monospace', fontSize: '13px', color: '#aaffcc', backgroundColor: '#112233', padding: { x: 12, y: 6 },
+      fontFamily: "'Share Tech Mono', 'Courier New', monospace", fontSize: '13px', color: '#aaffcc', backgroundColor: '#112233', padding: { x: 12, y: 6 },
     }).setOrigin(0.5).setAlpha(0).setDepth(100);
     this.tweens.add({ targets: toast, alpha: 1, duration: 200, hold: 2000, yoyo: true, onComplete: () => toast.destroy() });
   }
