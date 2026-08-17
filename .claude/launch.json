@@ -2,18 +2,33 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "Client (Vite / Phaser)",
+      "name": "Capture Client",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "client",
+      "cwd": "C:\\Users\\isaac\\repos\\spiritandbody\\client",
       "port": 5173
     },
     {
-      "name": "Server (Express / SQLite)",
+      "name": "Capture Server",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "server",
-      "port": 3001,
+      "cwd": "C:\\Users\\isaac\\repos\\spiritandbody\\server",
+      "port": 3002,
+      "autoPort": false
+    },
+    {
+      "name": "Army Builder Client",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\isaac\\repos\\army-builder\\client",
+      "port": 5174
+    },
+    {
+      "name": "Army Builder Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\isaac\\repos\\army-builder\\server",
+      "port": 3003,
       "autoPort": false
     }
   ]

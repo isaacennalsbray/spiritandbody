@@ -23,7 +23,15 @@ async function request(method, path, body) {
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
 
-  const data = await res.json();
+  let data;
+  const text = await res.text();
+  try {
+    data = JSON.parse(text);
+  } catch {
+    const err = new Error(`Server error (${res.status})`);
+    err.status = res.status;
+    throw err;
+  }
 
   if (!res.ok) {
     const err = new Error(data.error || `HTTP ${res.status}`);
@@ -36,20 +44,24 @@ async function request(method, path, body) {
 
 const ApiClient = {
   // ─── Auth ──────────────────────────────────────────────────────────────────
-  async register(username, email, password) {
-    const data = await request('POST', '/auth/register', { username, email, password });
+  async register(username, password) {
+    const data = await request('POST', '/auth/register', { username, password });
     if (data.token) setToken(data.token);
     return data;
   },
 
-  async login(email, password) {
-    const data = await request('POST', '/auth/login', { email, password });
+  async login(username, password) {
+    const data = await request('POST', '/auth/login', { username, password });
     if (data.token) setToken(data.token);
     return data;
+  },
+
+  async me() {
+    return request('GET', '/auth/me');
   },
 
   async getMe() {
-    return request('GET', '/auth/me');
+    return this.me();
   },
 
   logout() {
@@ -61,8 +73,8 @@ const ApiClient = {
   },
 
   // ─── Game state ────────────────────────────────────────────────────────────
-  async createCharacter(name, heroClass, beastTemplateId) {
-    return request('POST', '/game/characters', { name, class: heroClass, beastTemplateId });
+  async createCharacter(name, appearance) {
+    return request('POST', '/game/characters', { name, appearance });
   },
 
   async listCharacters() {
@@ -77,8 +89,56 @@ const ApiClient = {
     return request('PUT', `/game/characters/${id}`, payload);
   },
 
+  async deleteCharacter(id) {
+    return request('DELETE', `/game/characters/${id}`);
+  },
+
   async saveBeast(characterId, payload) {
     return request('PUT', `/game/characters/${characterId}/beast`, payload);
+  },
+
+  async savePet(characterId, petData) {
+    return request('POST', `/game/characters/${characterId}/pets`, petData);
+  },
+
+  async listPets(characterId) {
+    return request('GET', `/game/characters/${characterId}/pets`);
+  },
+
+  async updatePet(characterId, petId, data) {
+    return request('PUT', `/game/characters/${characterId}/pets/${petId}`, data);
+  },
+
+  async updateEquipment(characterId, data) {
+    return request('PUT', `/game/characters/${characterId}/equipment`, data);
+  },
+
+  async awardXp(characterId, xp) {
+    return request('POST', `/game/characters/${characterId}/award-xp`, { xp });
+  },
+
+  async awardItem(characterId, itemId) {
+    return request('POST', `/game/characters/${characterId}/award-item`, { itemId });
+  },
+
+  async awardGold(characterId, gold) {
+    return request('POST', `/game/characters/${characterId}/award-gold`, { gold });
+  },
+
+  async purchase(characterId, itemId, price) {
+    return request('POST', `/game/characters/${characterId}/purchase`, { itemId, price });
+  },
+
+  async updateBestiary(characterId, { seen = [], caught = [] }) {
+    return request('POST', `/game/characters/${characterId}/update-bestiary`, { seen, caught });
+  },
+
+  async updateQuestFlags(characterId, flags) {
+    return request('POST', `/game/characters/${characterId}/quest-flags`, flags);
+  },
+
+  async evolvePet(characterId, petId, newSpecies, stats = {}) {
+    return request('POST', `/game/characters/${characterId}/pets/${petId}/evolve`, { newSpecies, ...stats });
   },
 
   // ─── Battle ────────────────────────────────────────────────────────────────

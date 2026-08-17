@@ -89,20 +89,13 @@ export default class MainMenuScene extends Phaser.Scene {
     });
 
     // Main title
-    this.add.text(cx, 115, 'SPIRIT', {
+    this.add.text(cx, 135, 'CAPTURE', {
       fontFamily: 'monospace',
       fontSize: '52px',
       fontStyle: 'bold',
       color: '#ffffff',
       stroke: '#6688ff',
       strokeThickness: 3,
-    }).setOrigin(0.5);
-
-    this.add.text(cx, 160, '& BODY', {
-      fontFamily: 'monospace',
-      fontSize: '28px',
-      fontStyle: 'bold',
-      color: '#aabbff',
     }).setOrigin(0.5);
 
     // Decorative divider
@@ -207,7 +200,7 @@ export default class MainMenuScene extends Phaser.Scene {
       color: '#445566',
     }).setOrigin(0, 1);
 
-    this.add.text(GAME_WIDTH - 12, GAME_HEIGHT - 16, '© Spirit and Body', {
+    this.add.text(GAME_WIDTH - 12, GAME_HEIGHT - 16, '© Capture', {
       fontFamily: 'monospace',
       fontSize: '11px',
       color: '#334455',
