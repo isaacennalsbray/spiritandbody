@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS users (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    id            SERIAL PRIMARY KEY,
     username      TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
-    created_at    DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_login    DATETIME
+    created_at    TIMESTAMPTZ DEFAULT now(),
+    last_login    TIMESTAMPTZ
 );
 
 CREATE TABLE IF NOT EXISTS characters (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    id              SERIAL PRIMARY KEY,
     user_id         INTEGER NOT NULL REFERENCES users(id),
     name            TEXT NOT NULL,
     hp_max          INTEGER DEFAULT 100,
@@ -27,11 +27,13 @@ CREATE TABLE IF NOT EXISTS characters (
     appearance      TEXT DEFAULT '{"bodyType":"standard","skinTone":"medium","hairStyle":"short","hairColour":"brown","robeColour":"blue","hatColour":"blue"}',
     level           INTEGER DEFAULT 1,
     xp              INTEGER DEFAULT 0,
-    created_at      DATETIME DEFAULT CURRENT_TIMESTAMP
+    seen_species    TEXT DEFAULT '[]',
+    caught_species  TEXT DEFAULT '[]',
+    created_at      TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS pets (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    id              SERIAL PRIMARY KEY,
     character_id    INTEGER NOT NULL REFERENCES characters(id),
     species         TEXT NOT NULL,
     nickname        TEXT,
@@ -44,7 +46,8 @@ CREATE TABLE IF NOT EXISTS pets (
     defense         INTEGER DEFAULT 5,
     speed           INTEGER DEFAULT 8,
     active_slot     INTEGER DEFAULT NULL CHECK(active_slot IN (NULL, 1, 2)),
-    created_at      DATETIME DEFAULT CURRENT_TIMESTAMP
+    caught_region   TEXT DEFAULT NULL,
+    created_at      TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_characters_user ON characters(user_id);

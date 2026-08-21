@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { getDb } = require('../db/database');
+const { getOne, query } = require('../db/database');
 const { requireAuth } = require('../middleware/auth');
 
 function signToken(user) {
@@ -20,18 +20,18 @@ router.post('/register', async (req, res, next) => {
       return res.status(400).json({ error: 'username and password are required' });
     }
 
-    const db = getDb();
-    const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
+    const existing = await getOne('SELECT id FROM users WHERE username = $1', [username]);
     if (existing) {
       return res.status(409).json({ error: 'Username already taken' });
     }
 
     const password_hash = await bcrypt.hash(password, 10);
-    const result = db.prepare(
-      'INSERT INTO users (username, password_hash) VALUES (?, ?)'
-    ).run(username, password_hash);
+    const inserted = await getOne(
+      'INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id',
+      [username, password_hash]
+    );
 
-    const user = { id: result.lastInsertRowid, username };
+    const user = { id: inserted.id, username };
     const token = signToken(user);
     res.status(201).json({ token, user });
   } catch (err) {
@@ -47,8 +47,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(400).json({ error: 'username and password are required' });
     }
 
-    const db = getDb();
-    const row = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+    const row = await getOne('SELECT * FROM users WHERE username = $1', [username]);
     if (!row) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
@@ -58,7 +57,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
-    db.prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?').run(row.id);
+    await query('UPDATE users SET last_login = now() WHERE id = $1', [row.id]);
 
     const user = { id: row.id, username: row.username };
     const token = signToken(user);
@@ -69,12 +68,12 @@ router.post('/login', async (req, res, next) => {
 });
 
 // GET /api/auth/me
-router.get('/me', requireAuth, (req, res, next) => {
+router.get('/me', requireAuth, async (req, res, next) => {
   try {
-    const db = getDb();
-    const row = db.prepare(
-      'SELECT id, username, created_at, last_login FROM users WHERE id = ?'
-    ).get(req.user.id);
+    const row = await getOne(
+      'SELECT id, username, created_at, last_login FROM users WHERE id = $1',
+      [req.user.id]
+    );
     if (!row) return res.status(404).json({ error: 'User not found' });
     res.json({ user: row });
   } catch (err) {
