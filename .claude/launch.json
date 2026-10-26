@@ -4,31 +4,14 @@
     {
       "name": "Capture Client",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "C:\\Users\\isaac\\repos\\spiritandbody\\client",
+      "runtimeArgs": ["run", "dev", "--prefix", "client"],
       "port": 5173
     },
     {
       "name": "Capture Server",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "C:\\Users\\isaac\\repos\\spiritandbody\\server",
+      "runtimeArgs": ["run", "dev", "--prefix", "server"],
       "port": 3002,
-      "autoPort": false
-    },
-    {
-      "name": "Army Builder Client",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "C:\\Users\\isaac\\repos\\army-builder\\client",
-      "port": 5174
-    },
-    {
-      "name": "Army Builder Server",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "C:\\Users\\isaac\\repos\\army-builder\\server",
-      "port": 3003,
       "autoPort": false
     }
   ]
